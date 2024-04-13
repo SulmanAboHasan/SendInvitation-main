@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+
+option csharp_namespace = "DemoUserManagementQuerySide";
+
+package invitationmember.query.v1;
+
+service Members {
+  rpc GetSubscriptions (GetSubscriptionsRequest) returns (GetSubscriptionsResponse);
+  rpc GetOwnerInvitationPending (GetOwnerInvitationPendingRequest) returns (GetOwnerInvitationPendingResponse);
+  rpc GetMemberInvitationPending (GetMemberInvitationPendingRequest) returns (GetMemberInvitationPendingResponse);
+  rpc GetMemberSubscription (GetMemberSubscriptionRequest) returns (GetMemberSubscriptionResponse);
+}
+
+message GetSubscriptionsRequest {
+  string subscription_id = 1;
+  google.protobuf.Int32Value page = 2;
+  google.protobuf.Int32Value size = 3;
+
+
+}
+
+message GetSubscriptionsResponse {
+  repeated SubscriberOutput Subscribers = 1;
+   int32 page = 2;
+   int32 page_size = 3;
+   int32 total_results = 4;
+}
+
+message SubscriberOutput {
+   string id = 1;
+   string subscription_id = 2;
+   string subscription_description = 3;
+   string user_id = 4;
+   string user_name = 5;
+   string status = 6;
+   google.protobuf.Timestamp joined_at = 7;
+}
+
+message GetOwnerInvitationPendingRequest {
+	string owner_id = 1;
+	google.protobuf.Int32Value page = 2;
+    google.protobuf.Int32Value size = 3;
+}
+
+message GetOwnerInvitationPendingResponse {
+	repeated InvitationOutput invitations = 1;
+	int32 page = 2;
+    int32 page_size = 3;
+    int32 total_results = 4;
+}
+
+message InvitationOutput {
+	string id = 1;
+	string subscription_id = 2;
+	string subscription_description = 3;
+	string member_id = 4;
+	string member_name = 5;
+	string status = 6;
+	google.protobuf.Timestamp sent_at = 7;
+}
+
+message GetMemberInvitationPendingRequest {
+	string member_id = 1;
+	google.protobuf.Int32Value page = 2;
+    google.protobuf.Int32Value size = 3;
+}
+
+message GetMemberInvitationPendingResponse {
+	repeated InvitationOutput invitations = 1;
+	int32 page = 2;
+    int32 page_size = 3;
+    int32 total_results = 4;
+}
+
+message GetMemberSubscriptionRequest {
+	string member_id =1;
+	google.protobuf.Int32Value page = 2;
+    google.protobuf.Int32Value size = 3;
+}
+
+message GetMemberSubscriptionResponse {
+   repeated SubscriberOutput Subscribers = 1;
+   int32 page = 2;
+   int32 page_size = 3;
+   int32 total_results = 4;
+}
